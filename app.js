@@ -1,11 +1,13 @@
 var express = require("express"),
     app = express(), 
     bodyParser = require("body-parser"), 
-    mongoose = require("mongoose");
-
+    mongoose = require("mongoose"),
+    Plant = require("./models/plant"),
+    Comment=require("./models/comment"),
+    seedDB = require("./seeds")
+    
 app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine","ejs");
-
 require('dotenv').config();
 
 const uri = process.env.MONGO_URL;
@@ -15,17 +17,12 @@ connection.once('open', () => {
     console.log("MongoDB database connection established successfully");
 });
 
+seedDB();
+
 /*var plants=[
     {name:"Alovera",image:"https://i.ytimg.com/vi/AHlJuY0bagA/maxresdefault.jpg"},
     {name: "Neem",image: "https://images.unsplash.com/photo-1564505676257-57af8f7e43ab?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8bmVlbSUyMHBsYW50fGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"}
 ]*/
-
-var plantSchema = new mongoose.Schema({
-    name: String,
-    image: String,
-});
-
-var Plant = mongoose.model("Plant", plantSchema);
 
 /*Plant.create(
     {
@@ -49,7 +46,7 @@ app.get("/plants",function(req,res){
         if(err) {
             console.log(err);
         } else {
-            res.render("index", {plants: allplants});        
+            res.render("plants/index", {plants: allplants});        
         }
     });
 });
@@ -69,15 +66,44 @@ app.post("/plants",function(req,res){
 });
 
 app.get("/plants/new",function(req,res){
-    res.render("new.ejs");
+    res.render("plants/new");
 });
 
 app.get("/plants/:id", function(req, res) {
-    Plant.findById(req.params.id, function(err, foundPlant) {
+    Plant.findById(req.params.id).populate("comments").exec(function(err, foundPlant) {
         if(err) {
             console.log(err);
         } else {
-            res.render("show",{plant: foundPlant});
+            res.render("plants/show",{plant: foundPlant});
+        }
+    });
+});
+
+app.get("/plants/:id/comments/new",function(req,res){
+    Plant.findById(req.params.id, function(err,plant){
+        if(err){
+            console.log(err);
+        } else{
+            res.render("comments/new",{plant:plant});
+        }
+    })
+});
+
+app.post("/plants/:id/comments",function(req,res){
+    Plant.findById(req.params.id,function(err,plant){
+        if(err){
+            console.log(err);
+            res.redirect("/plants");
+        } else{
+            Comment.create(req.body.Comment,function(err,comment){
+                if(err){
+                    console.log(err);
+                } else{
+                    plants.comments.push(comment);
+                    plant.save();
+                    res.redirect('/plants/'+plant._id);
+                }
+            })
         }
     });
 });
