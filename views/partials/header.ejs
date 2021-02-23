@@ -9,4 +9,15 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     </head>
     <body>
+        <div>
+            <ul>
+                <% if(!currentUser) { %>
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/register">Signup</a></li>
+                <% } else { %>
+                    <li><a href="#">Signed In As <%= currentUser.username %></a></li>
+                    <li><a href="/logout">Logout</a></li>
+                <% } %>
+            </ul>
+        </div>
        
