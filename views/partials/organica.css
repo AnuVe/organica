@@ -1,0 +1,12 @@
+.navbar-light .navbar-brand {
+    color: #A05C2A;
+}
+body{
+    background: url(https://images.unsplash.com/photo-1526134873661-24b337d0052f?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=334&q=80);
+    background-size: contain;
+    background-position: center;
+    font-family: 'Poppins', sans-serif;
+}
+html{
+    height: 100%;
+}
