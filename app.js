@@ -2,8 +2,16 @@ var express = require("express"),
     app = express(), 
     bodyParser = require("body-parser"), 
     mongoose = require("mongoose"),
+    //
+    flash = require("connect-flash");
+    //...
+
     passport = require("passport"),
     LocalStrategy = require("passport-local"),
+    //
+    methodOverride = require("method-override"),
+    //...
+
     Plant = require("./models/plant"),
     Comment=require("./models/comment"),
     User = require("./models/user.js"),
@@ -16,6 +24,11 @@ var commentRoutes = require("./routes/comments"),
 app.use(bodyParser.urlencoded({extended:true}));
 app.use( express.static( "public" ) );
 app.set("view engine","ejs");
+//
+app.use(methodOverride("_method"));
+app.use(flash());
+//....
+
 require('dotenv').config();
 
 const uri = process.env.MONGO_URL;
@@ -25,7 +38,7 @@ connection.once('open', () => {
     console.log("MongoDB database connection established successfully");
 });
 
-seedDB();
+//..seedDB();
 
 app.use(require("express-session")({
     secret: "abcd",
@@ -40,6 +53,11 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use(function(req, res, next){
     res.locals.currentUser = req.user;
+    //
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
+    //.....
+    
     next();
 });
 
@@ -175,6 +193,13 @@ app.use(function(req, res, next){
 app.use("/",indexRoutes);
 app.use("/plants",plantRoutes);
 app.use("/plants/:id/comments",commentRoutes);
+//
+var plants = [
+    {name: "Great Outdoors",image: "https://images.unsplash.com/photo-1507163525711-618d70c7a8f1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"},
+    {name: "Northway", image: "https://images.unsplash.com/photo-1582908140887-5935bade88da?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"},
+    {name: "Tripp Lake", image: "https://images.unsplash.com/photo-1506535995048-638aa1b62b77?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"}
+];
+//...
 
 const port = process.env.PORT || 3000;
 
