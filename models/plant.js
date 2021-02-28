@@ -1,15 +1,22 @@
 var mongoose=require("mongoose");
+//
+const comment = require("./comment");
+//...
 
 var plantSchema = new mongoose.Schema({
     name: String,
     image: String,
-    // author:{
-    //     id:{
-    //         type: mongoose.Schema.Types.ObjectId,
-    //         ref:"User"
-    //     },
-    //     username: String	
-    // }
+    //
+    description: String,
+    author:{
+        id:{
+            type: mongoose.Schema.Types.ObjectId,
+            ref:"User"
+        },
+        username: String	
+    },
+    //...
+
     comments: [
         {
             type: mongoose.Schema.Types.ObjectId,
@@ -18,4 +25,4 @@ var plantSchema = new mongoose.Schema({
     ]
 });
 
-module.exports=mongoose.model("plants",plantSchema);
+module.exports=mongoose.model("Plant",plantSchema);
