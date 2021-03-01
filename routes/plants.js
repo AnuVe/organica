@@ -58,7 +58,7 @@ router.get("/:id/edit", middleware.checkPlantOwnership, function(req, res) {
 });
 
 router.put("/:id", middleware.checkPlantOwnership, function(req, res) {
-    Plant.findByIdAndUpdate(req.params.id, req.body.campground, function(err, updatedPlant) {
+    Plant.findByIdAndUpdate(req.params.id, req.body.plant, function(err, updatedPlant) {
         if(err) {
             res.redirect("/plants");
         } else {

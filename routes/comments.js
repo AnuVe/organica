@@ -16,17 +16,24 @@ router.get("/new", middleware.isLoggedIn, function(req,res){
 
 router.post("/", middleware.isLoggedIn, function(req,res){
     Plant.findById(req.params.id,function(err,plant){
-        if(err){
-            req.flash("error", "Something went wrong");
+        if(err) {
             console.log(err);
-        } else{
-            comment.author.id = req.user._id;
-            comment.author.username = req.user.username;
-            comment.save();
-            plant.comments.push(comment);
-            plant.save();
-            req.flash("success", "Successfully added comment");
-            res.redirect("/plants/"+plant._id);    
+            res.redirect("/plants");
+        } else {
+            Comment.create(req.body.comment, function(err, comment) {
+                if(err) {
+                    req.flash("error", "Something went wrong");
+                    console.log(err);
+                } else {
+                    comment.author.id = req.user._id;
+                    comment.author.username = req.user.username;
+                    comment.save();
+                    plant.comments.push(comment);
+                    plant.save();
+                    req.flash("success", "Successfully added comment");
+                    res.redirect("/plants/"+plant._id);
+                }
+            });
         }
     });
 });
@@ -36,7 +43,7 @@ router.get("/:comment_id/edit", middleware.checkCommentOwnership, function(req, 
         if(err) {
             res.redirect("back");
         } else {
-            res.render("comments/edit", {campground_id: req.params.id, comment: foundComment});
+            res.render("comments/edit", {plant_id: req.params.id, comment: foundComment});
         }
     });
 });
@@ -46,7 +53,7 @@ router.put("/:comment_id", middleware.checkCommentOwnership, function(req, res) 
         if(err) {
             res.redirect("back");
         }else {
-            res.redirect("/campgrounds/" + req.params.id);
+            res.redirect("/plants/" + req.params.id);
         }
     });
 });
@@ -57,7 +64,7 @@ router.delete("/:comment_id", middleware.checkCommentOwnership, function(req, re
             res.redirect(back);
         } else {
             req.flash("success", "Comment deleted");
-            res.redirect("/campgrounds/" + req.params.id);
+            res.redirect("/plants/" + req.params.id);
         }
     });
 });
