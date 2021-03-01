@@ -1,9 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var Plant=require("../models/plant");
-//
 var middleware = require("../middleware");
-//...
 
 router.get("/",function(req,res){
     Plant.find({}, function(err, allplants){
@@ -16,16 +14,13 @@ router.get("/",function(req,res){
 });
 
 router.post("/",middleware.isLoggedIn,function(req,res){
-    //res.send("POST");
     var name = req.body.name;
     var image = req.body.image;
-    //
     var desc = req.body.description;
     var author = {
         id: req.user._id,
         username: req.user.username
     }
-    //.....
     var newPlant = {name:name, image:image, description: desc, author: author}
     Plant.create(newPlant, function(err, newlyCreated) {
         if(err) {
@@ -40,7 +35,7 @@ router.get("/new",middleware.isLoggedIn, function(req,res){
     res.render("plants/new");
 });
 
-router.get("/:id", function(req, res) {
+router.get("/:id",middleware.isLoggedIn, function(req, res) {
     Plant.findById(req.params.id).populate("comments").exec(function(err, foundPlant) {
         if(err) {
             console.log(err);
@@ -50,7 +45,6 @@ router.get("/:id", function(req, res) {
     });
 });
 
-//
 router.get("/:id/edit", middleware.checkPlantOwnership, function(req, res) {
     Plant.findById(req.params.id, function(err, foundPlant) {
         res.render("plants/edit", {plant: foundPlant});
@@ -76,15 +70,6 @@ router.delete("/:id", middleware.checkPlantOwnership, function(req, res) {
         }
     });
 });
-//....
-
-// function isLoggedIn(req, res, next) {
-//     if(req.isAuthenticated()) {
-//         return next();
-//     }
-//     res.redirect("/login");
-// }
-
 
 module.exports = router;
 
