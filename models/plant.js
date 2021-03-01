@@ -1,12 +1,9 @@
 var mongoose=require("mongoose");
-//
 const comment = require("./comment");
-//...
 
 var plantSchema = new mongoose.Schema({
     name: String,
     image: String,
-    //
     description: String,
     author:{
         id:{
@@ -15,8 +12,6 @@ var plantSchema = new mongoose.Schema({
         },
         username: String	
     },
-    //...
-
     comments: [
         {
             type: mongoose.Schema.Types.ObjectId,
