@@ -19,6 +19,12 @@
             html{
 	            height: 100%;
             }
+            .btn-primary {
+                color: #fff;
+                background-color:#A05C2A;
+                border-color: #A05C2A;
+                align-self: center;
+            }
         </style>
     </head>
     <body>
@@ -28,51 +34,41 @@
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">About</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Contact us</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Select your plant
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <li><a class="dropdown-item" href="#">Neem</a></li>
-                      <li><a class="dropdown-item" href="#">Tulsi</a></li>
-                      <li><a class="dropdown-item" href="#">Alovera</a></li>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contact us</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Select your plant
+                            </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="#">Neem</a></li>
+                                    <li><a class="dropdown-item" href="#">Tulsi</a></li>
+                                    <li><a class="dropdown-item" href="#">Alovera</a></li>
+                                </ul>
+                        </li>
                     </ul>
-                    
-                  </li>
-                </ul>
-                  <ul class="navbar-nav navbar-right">
-                    <% if(!currentUser) { %>
-                        <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/register">Signup</a></li>
-                    <% } else { %>
-                        <li><a href="#">Signed In As <%= currentUser.username %></a></li>
-                        <li><a href="/logout">Logout</a></li>
-                    <% } %>
-                 </ul>
+                        <ul class="navbar-nav navbar-right">
+                            <% if(!currentUser) { %>
+                                <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/register">Signup</a></li>
+                            <% } else { %>
+                                <li><a href="#">Signed In As <%= currentUser.username %></a></li>
+                                <li><a href="/logout">Logout</a></li>
+                            <% } %>
+                        </ul>
                 </div><!-- collapsable contents -->
-                
-                </div> <!-- navbar fluid -->
-            
-          </nav>
-        <!-- <div>
-            <ul>
-                <% if(!currentUser) { %>
-                    <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/register">Signup</a></li>
-                <% } else { %>
-                    <li><a href="#">Signed In As <%= currentUser.username %></a></li>
-                    <li><a href="/logout">Logout</a></li>
-                <% } %>
-            </ul>
-        </div> -->
-    </body>        
+            </div> <!-- navbar fluid -->
+        </nav>
+    </body> 
+</html>                  
+                        
+           
+          
                       
               
