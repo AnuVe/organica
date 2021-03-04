@@ -13,6 +13,10 @@ router.get("/",function(req,res){
     });
 });
 
+router.get("/add/new",middleware.isLoggedIn, function(req,res){
+    res.render("plants/new");
+});
+
 router.post("/",middleware.isLoggedIn,function(req,res){
     var name = req.body.name;
     var image = req.body.image;
@@ -31,9 +35,6 @@ router.post("/",middleware.isLoggedIn,function(req,res){
     });
 });
 
-router.get("/new",middleware.isLoggedIn, function(req,res){
-    res.render("plants/new");
-});
 
 router.get("/:id",middleware.isLoggedIn, function(req, res) {
     Plant.findById(req.params.id).populate("comments").exec(function(err, foundPlant) {
