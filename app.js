@@ -20,7 +20,8 @@ var express = require("express"),
 
 var commentRoutes = require("./routes/comments"),
     plantRoutes = require("./routes/plants"),
-    indexRoutes = require("./routes/index");
+    indexRoutes = require("./routes/index"),
+    imageRouter = require('./routes/imageRoutes/image');
     
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json()); 
@@ -33,14 +34,23 @@ require('dotenv').config();
 
 let gfs;
 
-const uri = process.env.MONGO_URL;
+/* const uri = process.env.MONGO_URL;
 mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
 const connection = mongoose.connection;
 connection.once('open', () => {
     console.log("MongoDB database connection established successfully");
     gfs = Grid(connection.db, mongoose.mongo);
     gfs.collection("uploads");
-});
+});*/
+
+const uri = process.env.MONGO_URL; 
+const connect = mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+// connect to the database
+connect.then(() => {
+    console.log('Connected to database');
+}, (err) => console.log(err));
+
 
 app.use(require("express-session")({
     secret: "abcd",
@@ -61,7 +71,7 @@ const storage = new GridFsStorage({
                 if(err) {
                     return reject(err);
                 }
-                const filename = buf.toString("hex" + path.extname(file.originalname));
+                const filename = buf.toString('hex') + path.extname(file.originalname);
                 const fileInfo = {
                     filename: filename,
                     bucketName: "uploads"
@@ -73,24 +83,7 @@ const storage = new GridFsStorage({
 });
 const upload = multer({storage});
 
-app.post("/plants",upload.single("file"), middleware.isLoggedIn,function(req,res){
-    var name = req.body.name;
-    var image = req.body.image;
-    var desc = req.body.description;
-    var author = {
-        id: req.user._id,
-        username: req.user.username
-    }
-    var newPlant = {name:name, image:image, description: desc, author: author}
-    //Plant.create(newPlant, function(err, newlyCreated) {
-      //  if(err) {
-        //    console.log(err);
-        //} else {
-            res.json({file: req.file});
-            //res.redirect("/plants");
-        //}
-    //});
-});
+app.use('/', imageRouter(upload));
 
 app.use(function(req, res, next){
     res.locals.currentUser = req.user;
@@ -105,3 +98,5 @@ app.use("/plants/:id/comments",commentRoutes);
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => console.log(`Server started on port ${port}`));
+
+module.exports = app;
