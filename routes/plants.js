@@ -18,23 +18,34 @@ router.get("/add/new",middleware.isLoggedIn, function(req,res){
 });
 
 router.post("/",middleware.isLoggedIn,function(req,res){
-    var name = req.body.name;
     var image = req.body.image;
     var desc = req.body.description;
+    var plantType = req.body.plantType;
     var author = {
         id: req.user._id,
         username: req.user.username
     }
-    var newPlant = {name:name, image:image, description: desc, author: author}
+    var newPlant = {image:image, description: desc, author: author, plantType:plantType}
     Plant.create(newPlant, function(err, newlyCreated) {
         if(err) {
             console.log(err);
         } else {
+            console.log(newlyCreated);
             res.redirect("/plants");
         }
     });
 });
 
+router.get('/plantType/a/:plantType', function(req, res) {
+    console.log(req.params.plantType);
+    Plant.find({}, function(err, all) {
+        if(err) {
+            console.log(err);
+        } else {
+            res.render("plants/showAll", {plants: all, type: req.params.plantType});
+        }
+    });
+})
 
 router.get("/:id",middleware.isLoggedIn, function(req, res) {
     Plant.findById(req.params.id).populate("comments").exec(function(err, foundPlant) {
