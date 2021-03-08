@@ -8,6 +8,7 @@
         <div>
             <% if(type.toLowerCase()==type2.toLowerCase()) { %>
                 <img src="/image/<%=plant.file.filename%>">
+                <p>Located in: <%=plant.city%></p>
                 <p><%=plant.description %> </p>
                 <a href="/plants/<%=plant._id %>">View</a>
             <% } %>
