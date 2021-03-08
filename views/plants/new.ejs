@@ -4,15 +4,14 @@
 
     /* BASIC */
     
-    html {
-      height: 100%;
-    }
+    
     
     body {
       font-family: "Poppins", sans-serif;
       height: 100vh;
       background-image:url("/images/bg_image.jpg");
       background-size: cover;
+      background-repeat:no-repeat ;
       background-position: center;
     }
    
@@ -115,7 +114,7 @@
       transform: scale(0.95);
     }
     
-    input[type=text],select {
+    input[type=text],select,input[type=file] {
       background-color: #f6f6f6;
       border: none;
       color: #0d0d0d;
@@ -298,6 +297,11 @@
                             <option value="giloy">Giloy</option>
                             <option value="mint">Mint</option>
                         </select>
+                        <div class="custom-file mb-3">
+                            <label for="file" class="custom-file-label">Choose File</label>
+                            <input type="file" name="file" id="file" class="custom-file-input">
+                            
+                        </div> 
             <input type="submit" class="fadeIn fourth" value="Submit" style="background-color: #A05C2A;">
           </form>
       
@@ -314,8 +318,3 @@
 <a href="/plants">Go Back</a>
 
 <%- include('../partials/footer') %>
-
-    <!--<div class="custom-file mb-3">
-        <input type="file" name="file" id="file" class="custom-file-input">
-        <label for="file" class="custom-file-label">Choose File</label>
-    </div> -->

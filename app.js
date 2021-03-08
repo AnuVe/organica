@@ -21,7 +21,7 @@ var express = require("express"),
 var commentRoutes = require("./routes/comments"),
     plantRoutes = require("./routes/plants"),
     indexRoutes = require("./routes/index"),
-    imageRouter = require('./routes/imageRoutes/image');
+    imageRouter = require("./routes/plantPost");
     
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json()); 
