@@ -7,10 +7,9 @@
         <% var type2=plant.plantType %>
         <div>
             <% if(type.toLowerCase()==type2.toLowerCase()) { %>
-                <img src="<%=plant.image %>">
+                <img src="/image/<%=plant.file.filename%>">
                 <p><%=plant.description %> </p>
                 <a href="/plants/<%=plant._id %>">View</a>
-                <%=plant.plantType%>
             <% } %>
             <hr>
         </div>
