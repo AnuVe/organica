@@ -21,6 +21,7 @@ var express = require("express"),
 var commentRoutes = require("./routes/comments"),
     plantRoutes = require("./routes/plants"),
     indexRoutes = require("./routes/index"),
+    aboutRoutes = require("./routes/aboutus"),
     imageRouter = require("./routes/plantPost");
     
 app.use(bodyParser.urlencoded({extended:true}));
@@ -83,8 +84,6 @@ const storage = new GridFsStorage({
 });
 const upload = multer({storage});
 
-app.use('/', imageRouter(upload));
-
 app.use(function(req, res, next){
     res.locals.currentUser = req.user;
     res.locals.error = req.flash("error");
@@ -92,6 +91,8 @@ app.use(function(req, res, next){
     next();
 });
 
+app.use('/', imageRouter(upload));
+app.use("/", aboutRoutes);
 app.use("/",indexRoutes);
 app.use("/plants",plantRoutes);
 app.use("/plants/:id/comments",commentRoutes);
