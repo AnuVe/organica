@@ -17,12 +17,12 @@ router.post("/register", function(req,res) {
         if(err) {
             //console.log(err);
             //
-            req.flash("error", err.message);
+            //req.flash("error", err.message);
             //....
             return res.render("register")
         }
         passport.authenticate("local")(req, res, function() {
-            req.flash("success", "Welcome to Organica " + user.username);
+            //req.flash("success", "Welcome to Organica " + user.username);
             res.redirect("/plants");
         });
     });
@@ -41,7 +41,7 @@ router.post("/login", passport.authenticate("local",
 
 router.get("/logout", function(req, res) {
     req.logout();
-    req.flash("success", "Logged you out");
+    //req.flash("success", "Logged you out");
     res.redirect("/plants");
 });
 
