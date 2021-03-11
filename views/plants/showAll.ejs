@@ -1,8 +1,82 @@
 <%- include('../partials/header') %>
+<style>
+    .img-thumbnail{
+        height: 250px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        
+    }
+    h2,h1{
+        margin-top: 90px;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    /* .center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+} */
+    /* .card-horizontal {
+    display: flex;
+    flex: 1 1 auto;
+    height: 300 px;
+} */
+</style>
    
-    <h1><%=type%></h1>
-    <h1><%=type%></h1>
-    
+    <!-- <h1><%=type%></h1>
+    <h1><%=type%></h1> -->
+    <%var all=[
+    {
+        ptype: "tulsi",
+        heading: "Tulsi",
+        image: "https://cdn.pixabay.com/photo/2021/02/23/10/12/leaves-6042983_960_720.jpg",
+        description: "tulsi is good!"
+    },
+    {
+        ptype: "aloevera",
+        heading: "Aloe vera",
+        image: "https://cdn.pixabay.com/photo/2014/03/02/05/27/aloe-vera-277948__340.jpg",
+        description: "aloevera is good!"
+    },
+    {
+        ptype: "curryLeaves",
+        heading: "Curry Leaves",
+        image: "https://cdn.pixabay.com/photo/2020/04/10/02/50/kaddipatta-5023845_960_720.jpg",
+        description: "curryleaves is good!"
+    }
+] %> 
+
+<% for(var i=0; i<all.length; i++) { 
+    if(type===all[i].ptype) {
+        break;
+    }
+} %>
+<h2><%=all[i].heading%></h2>
+<img src="<%=all[i].image%>" class="img-thumbnail">
+<p><%=all[i].description%></p>
+<!-- HTML CARD -->
+<!-- <div class="container-fluid">
+    <div class="row">
+        <div class="col-12 mt-3">
+            <div class="card">
+                <div class="card-horizontal">
+                    <div class="img-square-wrapper">
+                        <img  src="<%=all[i].image%>" alt="Card image cap" >
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">Card title</h4>
+                        <p class="card-text"><%=all[i].description%></p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div> --> 
+
+
     <% plants.forEach(function(plant){ %>
         <% var type2=plant.plantType %>
         <div>
