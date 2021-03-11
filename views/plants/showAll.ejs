@@ -28,34 +28,34 @@
     <!-- <h1><%=type%></h1>
     <h1><%=type%></h1> -->
     <%var all=[
-    {
-        ptype: "tulsi",
-        heading: "Tulsi",
-        image: "https://cdn.pixabay.com/photo/2021/02/23/10/12/leaves-6042983_960_720.jpg",
-        description: "tulsi is good!"
-    },
-    {
-        ptype: "aloevera",
-        heading: "Aloe vera",
-        image: "https://cdn.pixabay.com/photo/2014/03/02/05/27/aloe-vera-277948__340.jpg",
-        description: "aloevera is good!"
-    },
-    {
-        ptype: "curryLeaves",
-        heading: "Curry Leaves",
-        image: "https://cdn.pixabay.com/photo/2020/04/10/02/50/kaddipatta-5023845_960_720.jpg",
-        description: "curryleaves is good!"
-    }
-] %> 
-
-<% for(var i=0; i<all.length; i++) { 
-    if(type===all[i].ptype) {
-        break;
-    }
-} %>
-<h2><%=all[i].heading%></h2>
-<img src="<%=all[i].image%>" class="img-thumbnail">
-<p><%=all[i].description%></p>
+        {
+            ptype: "tulsi",
+            heading: "Tulsi",
+            image: "https://www.thespruceeats.com/thmb/EEd5zFv-FqOoXTlHogaKQvr65ek=/2119x1415/filters:fill(auto,1)/Tulsiplant-GettyImages-802852106-597032109abed50011e88d1d.jpg",
+            description: "Tulsi is considered an adaptogenic herb, meaning it can help adapt the body to stress and boost energy. In alternative medicine, tulsi is typically used for anxiety, stress, and fatigue, and may be used in herbal formulations to help treat asthma, bronchitis, colds, and the flu."
+        },
+        {
+            ptype: "aloevera",
+            heading: "Aloe vera",
+            image: "https://cdn.pixabay.com/photo/2014/03/02/05/27/aloe-vera-277948__340.jpg",
+            description: "aloevera is good!"
+        },
+        {
+            ptype: "curryLeaves",
+            heading: "Curry Leaves",
+            image: "http://suburbantomato.com/wp-content/uploads/2012/02/2012-Jan-006.jpg",
+            description: "Curry leaves are rich in plant compounds which are powerful antioxidants. These compounds keep us healthy and protect us from numerous diseases. They protect us from oxidative damage, preventing diseases of the nervous system, cardiovascular system, kidneys etc."
+        }
+    ] %> 
+    
+    <% for(var i=0; i<all.length; i++) { 
+        if(type===all[i].ptype) {
+            break;
+        }
+    } %>
+    <h2><%=all[i].heading%></h2>
+    <img src="<%=all[i].image%>">
+    <p><%=all[i].description%></p>
 <!-- HTML CARD -->
 <!-- <div class="container-fluid">
     <div class="row">
