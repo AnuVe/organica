@@ -7,7 +7,14 @@
         margin-right: auto;
         
     } */
-    img, svg {
+    .col-lg-4 col-sm-6{
+        height: 350px;
+    }
+    #img-user{
+        width: 100%;
+        height: 270px;
+    }
+    #img-card{
         vertical-align: middle;
         height: 350px;
         width: 500px;
@@ -34,6 +41,10 @@
         margin-bottom: 70px;
         margin-top: 90px;
     }
+    .img-thumbnail{
+        margin-bottom: 10%;
+        background-color:#f8f9fa ;
+    }
 </style>
    
     <!-- <h1><%=type%></h1>
@@ -42,8 +53,8 @@
     {
         ptype: "tulsi",
         heading: "Tulsi",
-        image: "https://cdn.pixabay.com/photo/2021/02/23/10/12/leaves-6042983_960_720.jpg",
-        description: "tulsi is good!"
+        image: "https://www.thespruceeats.com/thmb/EEd5zFv-FqOoXTlHogaKQvr65ek=/2119x1415/filters:fill(auto,1)/Tulsiplant-GettyImages-802852106-597032109abed50011e88d1d.jpg",
+        description: "Tulsi is considered an adaptogenic herb, meaning it can help adapt the body to stress and boost energy. In alternative medicine, tulsi is typically used for anxiety, stress, and fatigue, and may be used in herbal formulations to help treat asthma, bronchitis, colds, and the flu."
     },
     {
         ptype: "aloevera",
@@ -54,8 +65,8 @@
     {
         ptype: "curryLeaves",
         heading: "Curry Leaves",
-        image: "https://cdn.pixabay.com/photo/2020/04/10/02/50/kaddipatta-5023845_960_720.jpg",
-        description: "curryleaves is good!"
+        image: "http://suburbantomato.com/wp-content/uploads/2012/02/2012-Jan-006.jpg",
+        description: "Curry leaves are rich in plant compounds which are powerful antioxidants. These compounds keep us healthy and protect us from numerous diseases. They protect us from oxidative damage, preventing diseases of the nervous system, cardiovascular system, kidneys etc."
     }
 ] %> 
 
@@ -72,31 +83,36 @@
                     <div class="card">
                         <div class="card-horizontal">
                             <div class="img-square-wrapper">
-                                <img  src="<%=all[i].image%>" alt="Card image cap" >
+                                <img  src="<%=all[i].image%>" alt="Card image cap" id="img-card">
                             </div>
                             <div class="card-body">
                                 <h2 class="card-title"><%=all[i].heading%></h2>
                                 <p class="card-text"><%=all[i].description%></p>
                             </div>
                         </div>
-                        
                     </div>
-                </div>
+                </div> 
             </div>
-        </div> 
-
-    </div>
-     <% plants.forEach(function(plant){ %>
-        <% var type2=plant.plantType %>
-        <div>
+        </div>
+        <div class="row" id="plants-grid">
+        <% plants.forEach(function(plant){ %>
+            <% var type2=plant.plantType %>
             <% if(type.toLowerCase()==type2.toLowerCase()) { %>
-                <img src="/image/<%=plant.file.filename%>">
+                <!-- <img src="/image/<%=plant.file.filename%>">
                 <p>Located in: <%=plant.city%></p>
                 <p><%=plant.description %> </p>
-                <a href="/plants/<%=plant._id %>">View</a>
-            <% } %>
-            <hr>
-        </div>
-    <% }); %>        
-
+                <a href="/plants/<%=plant._id %>">View</a> -->
+                <div class="col-lg-4 col-sm-6">
+                    <div class="img-thumbnail" alt="...">
+                      <img src="/image/<%=plant.file.filename%> " id="img-user">
+                      <p>Located in: <%=plant.city%></p>
+                      <p><%=plant.description %> </p>
+                      <a href="/plants/<%=plant._id %>">View</a>
+                    </div>
+                  </div>
+        <% } %>
+    <% }); %> 
+ </div> 
+</div>       
 <%- include('../partials/footer') %>
+        

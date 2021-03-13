@@ -1,6 +1,31 @@
 <%- include("../partials/header"); %>
+<style>
+    .img-thumbnail{
+        margin-bottom: 10%;
+        
+        background-color:#f8f9fa ;
+        height: 300px;
+        max-width: 100%;
+    }
+    #img-card{
+        vertical-align: middle;
+        height: 350px;
+        width: 500px;
+        margin-bottom: 30px;
+}
+.card-horizontal {
+        display: flex;
+        flex: 1 1 auto;
+    }
+    .card{
+        height: 350px;
+        background-color: #f8f9fa;
+        margin-bottom: 70px;
+        margin-top: 90px;
+    }
+</style>
 
-<div class="container">
+<!-- <div class="container">
     <div class="row">
         <div class="col-md-9">
             <div class="card margin">
@@ -12,7 +37,28 @@
                     <p>
                         <em>Submitted By <%= plant.author.username %></em>
                     </p>
-                    
+                     -->
+                     <div class="container">
+                        <div class="row">
+                            <div class="col-12 mt-3">
+                                <div class="card">
+                                    <div class="card-horizontal">
+                                        <div class="img-square-wrapper">
+                                            <img  src="/image/<%=plant.file.filename%>" alt="Card image cap" id="img-card">
+                                        </div>
+                                        <div class="card-body">
+                                            <h2 class="card-title"><p><%= plant.name %></p>
+                                                <p>Located in: <%=plant.city%></p>
+                                            </h2>
+                                            <p class="card-text"><%= plant.description %>
+                                                <p><em>Submitted By <%= plant.author.username %></em></p>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
                     <% if(currentUser && plant.author.id.equals(currentUser._id)) { %> 
                         <a class="btn btn-warning btn-xs" href="/plants/<%= plant._id %>/edit">Edit</a>
                         <form id="form-delete-inline" action="/plants/<%= plant._id %>?_method=delete" method="post">
