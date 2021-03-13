@@ -3,20 +3,78 @@
 <div class="text-center container">
     <h1>Edit <%= plant.name %></h1>
     <div style="width:30%; margin:25px auto;">
-        <form action="/plants/<%= plant._id %>?_method=put" method="post">
+        <form action="/plants/<%= plant._id %>?_method=put" method="post" enctype="multipart/form-data">
             <div class="form-group">
-                <input class="form-control" type="text" name="plant[name]" placeholder="name" value="<%= plant.name %>">
+                <label for="plantType">Choose a plant:</label>
+                <select id="p" name="plantType"class="form input">
+                    <% var plantsarr=["tulsi", "aloevera", "curryLeaves", "neem", "mulethi", "ashwagandha", "turmeric", "giloy", "mint"] %>
+                    <% for(var i=0; i<plantsarr.length; i++) { %>
+                        <% if(plantsarr[i]===plant.plantType) {%>
+                            <option value="<%=plantsarr[i]%>" selected> <%=plantsarr[i]%> </option>
+                        <% } else { %>
+                            <option value="<%=plantsarr[i]%>"> <%=plantsarr[i]%> </option>
+                        <% } %>
+                    <% } %>
+                    <!-- <option value="tulsi">Tulsi</option>
+                    <option value="aloevera">Aloevera</option>
+                    <option value="curryLeaves">Curry Leaves</option>
+                    <option value="neem">Neem</option>
+                    <option value="mulethi">Mulethi</option>
+                    <option value="ashwagandha">Ashwagandha</option>
+                    <option value="turmeric">Turmeric</option>
+                    <option value="giloy">Giloy</option>
+                    <option value="mint">Mint</option> -->
+                </select>
             </div>
-            <div class="form-group">
-                <input class="form-control" type="text" name="plant[image]" placeholder="image url" value="<%= plant.image %>">
+            <div>
+                <select name="city" class="form input" value="plant.city">
+                    <option value="Ahmedabad">Ahmedabad</option>
+                    <option value="Agra">Agra</option>
+                    <option value="Amritsar">Amritsar</option>
+                    <option value="Bangalore">Bangalore</option>
+                    <option value="Bhopal">Bhopal</option>
+                    <option value="Chennai">Chennai</option>
+                    <option value="Dehradun">Dehradun</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Gwalior">Gwalior</option>
+                    <option value="Hyderabad">Hyderabad</option>
+                    <option value="Indore">Indore</option>
+                    <option value="Jaipur">Jaipur</option>
+                    <option value="Jabalpur">Jabalpur</option>
+                    <option value="Jodhpur">Jodhpur</option>
+                    <option value="Kanpur">Kanpur</option>
+                    <option value="Kolkata">Kolkata</option>
+                    <option value="Lucknow">Lucknow</option>
+                    <option value="Mumbai">Mumbai</option>
+                    <option value="Muzaffarpur">Muzaffarpur</option>
+                    <option value="Nagpur">Nagpur</option>
+                    <option value="Nashik">Nashik</option>
+                    <option value="Noida">Noida</option>
+                    <option value="Patna">Patna</option>
+                    <option value="Prayagraj">Prayagraj</option>
+                    <option value="Pune">Pune</option>
+                    <option value="Raipur">Raipur</option>
+                    <option value="Surat">Surat</option>
+                    <option value="Udaipur">Udaipur</option>
+                    <option value="Vadodara">Vadodara</option>
+                    <option value="Varanasi">Varanasi</option>
+                </select>
             </div>
             <div class="form-group">
                 <input class="form-control" type="text" name="plant[description]" placeholder="description" value="<%= plant.description %>">
+            </div>
+            <div>
+                <div class="custom-file mb-3 form-group">
+                    <label for="file" class="custom-file-label">Choose Image</label>
+                    <p><%= plant.file.originalname %></p>
+                    <input type="file" name="file" id="file" class="custom-file-input" accept="image/png, image/jpeg, image/jpg" value="<%= plant.file.originalname %>">        
+                </div> 
             </div>
             <div class="form-group">
                 <button class="btn btn-lg btn-primary btn-block">Submit!</button>
             </div>
         </form>
+
         <a href="/plants">Go Back</a>
     </div>
 </div>
