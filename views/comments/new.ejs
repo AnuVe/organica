@@ -1,6 +1,11 @@
 <%- include("../partials/header.ejs"); %>
-
-<div class="text-center container">
+<style>
+    #contents{
+        padding-top: 20%;
+        margin-bottom: 15%;
+    }
+</style>
+<div class="text-center container" id="contents">
     <h1>Create a new comment to <%= plant.name %></h1>
     <div style="width:30%; margin:25px auto;">
         <form action="/plants/<%= plant._id %>/comments" method="post">
